@@ -19,7 +19,17 @@ export class FoodService {
     return this.http.get<Food[]>(environment.baseUrl + this.endpoint);
   }
 
-  public getAFood(id: number): Observable<Food> {
+  public getFoodByFood(id: number): Observable<Food> {
     return this.http.get<Food>(environment.baseUrl + this.endpoint + id);
   }
+
+  public AddFoodItem(food: Food): Observable<Food> {
+    return this.http.post<Food>(`${ this.authUrl }/register`, food).pipe(
+      tap(response => {
+        if (response) {
+          this.authSuccess(response);
+        }
+      })
+    );
+  };
 }
